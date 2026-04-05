@@ -1,0 +1,86 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.navbar-left {
+  flex: 1;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.navbar-center a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.navbar-center a:hover {
+  color: #007bff;
+}
+
+.navbar-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-container {
+  position: relative;
+  display: inline-flex;
+}
+
+.user-icon {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.user-icon:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+.user-container:hover .dropdown {
+  display: flex;
+}
+
+.dropdown button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.dropdown button:hover {
+  background-color: #f8f9fa;
+}
