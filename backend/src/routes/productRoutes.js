@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import * as productController from '../controllers/productController.js';
+import { requireAuth } from '../middleware/requireAuth.js';
 
 const router = express.Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -16,18 +17,14 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Middleware to check authentication (dummy, replace with real one)
-const isAuthenticated = (req, res, next) => {
-  // req.user should be set after authentication
-  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
-  next();
-};
+
+
 
 // Seller adds a product
-router.post('/add', isAuthenticated, upload.array('photos', 10), productController.addProduct);
+router.post('/add', requireAuth, upload.array('photos', 10), productController.addProduct);
 // Buyer gets all products
 router.get('/all', productController.getAllProducts);
 // Seller gets their products
-router.get('/seller', isAuthenticated, productController.getSellerProducts);
+router.get('/seller', requireAuth, productController.getSellerProducts);
 
 export default router;

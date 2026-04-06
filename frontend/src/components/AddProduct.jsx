@@ -9,7 +9,7 @@ const AddProduct = ({ onProductAdded }) => {
     price: '',
     reasonForSelling: '',
     contactNumber: '',
-    photos: []
+    photos: [null, null, null, null, null]
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,14 +18,17 @@ const AddProduct = ({ onProductAdded }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handlePhotos = e => {
-    setForm({ ...form, photos: Array.from(e.target.files) });
+  const handlePhotoChange = (idx, file) => {
+    const newPhotos = [...form.photos];
+    newPhotos[idx] = file;
+    setForm({ ...form, photos: newPhotos });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (form.photos.length < 5) {
-      setError('Please upload at least 5 photos.');
+    const missingPhotos = form.photos.map((p, idx) => (p ? null : idx + 1)).filter(Boolean);
+    if (missingPhotos.length > 0) {
+      setError(`Please upload a photo for input(s): ${missingPhotos.join(', ')}`);
       return;
     }
     setLoading(true);
@@ -39,9 +42,14 @@ const AddProduct = ({ onProductAdded }) => {
           data.append(key, form[key]);
         }
       });
-      // TODO: Add authentication header if needed
-      await axios.post(`${API_BASE_URL}/api/products/add`, data);
-      setForm({ name: '', address: '', price: '', reasonForSelling: '', contactNumber: '', photos: [] });
+      // Add authentication header with JWT token
+      const token = localStorage.getItem('token');
+      await axios.post(`${API_BASE_URL}/api/products/add`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setForm({ name: '', address: '', price: '', reasonForSelling: '', contactNumber: '', photos: [null, null, null, null, null] });
       if (onProductAdded) onProductAdded();
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to add product');
@@ -63,8 +71,16 @@ const AddProduct = ({ onProductAdded }) => {
       <input id="reasonForSelling" name="reasonForSelling" placeholder="Reason for Selling" value={form.reasonForSelling} onChange={handleChange} required />
       <label htmlFor="contactNumber">Contact Number</label>
       <input id="contactNumber" name="contactNumber" placeholder="Contact Number" value={form.contactNumber} onChange={handleChange} required />
-      <label htmlFor="photos">Product Photos (min 5)</label>
-      <input id="photos" name="photos" type="file" accept="image/*" multiple onChange={handlePhotos} required />
+      <label>Product Photos (5 required)</label>
+      {[0,1,2,3,4].map(idx => (
+        <input
+          key={idx}
+          type="file"
+          accept="image/*"
+          required
+          onChange={e => handlePhotoChange(idx, e.target.files[0])}
+        />
+      ))}
       <button type="submit" disabled={loading}>{loading ? 'Adding...' : 'Add Product'}</button>
     </form>
   );
