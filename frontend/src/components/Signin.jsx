@@ -27,7 +27,11 @@ const Signin = () => {
       localStorage.setItem('userId', data.userId);
       localStorage.setItem('role', data.role);
       localStorage.setItem('clothesellingUser', JSON.stringify({ displayName: email.split('@')[0] || 'User', email }));
-      navigate(from);
+      if (data.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate(from);
+      }
     } catch (err) {
       setError(err.message || 'Login failed');
     }

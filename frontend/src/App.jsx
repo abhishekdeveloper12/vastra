@@ -7,6 +7,7 @@ import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 import Settings from './components/Settings'
 import ProtectedRoute from './components/ProtectedRoute'
+import AdminDashboard from './components/AdminDashboard'
 
 export default function App() {
   return (
@@ -25,6 +26,11 @@ export default function App() {
           <Route path="/settings" element={
             <ProtectedRoute>
               <Settings />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <AdminDashboard />
             </ProtectedRoute>
           } />
         </Routes>

@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected', 'sold'],
+      default: 'pending',
+    },
   seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
