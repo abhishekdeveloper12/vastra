@@ -84,3 +84,61 @@
 .dropdown button:hover {
   background-color: #f8f9fa;
 }
+
+/* Ensure profile-card buttons are always visible and not hidden by .dropdown button rules */
+.profile-card button {
+  display: block !important;
+  background: inherit;
+  color: inherit;
+  text-align: center;
+  margin: 0.25rem 0;
+}
+
+.profile-card {
+  padding: 1rem;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.profile-welcome {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.profile-button,
+.logout-button {
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.profile-button:hover {
+  background-color: #1d4ed8;
+}
+
+.logout-button {
+  background-color: #ef4444;
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: #dc2626;
+}

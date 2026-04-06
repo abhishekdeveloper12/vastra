@@ -1,0 +1,18 @@
+.dashboard-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+}
+
+.dashboard-page h1 {
+  margin-top: 0;
+  color: #0f172a;
+}
+
+.dashboard-page p {
+  color: #475569;
+  line-height: 1.7;
+}

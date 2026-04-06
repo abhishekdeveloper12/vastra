@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithGoogle } from '../firebase';
+import { API_BASE_URL } from '../api';
 import './Auth.css';
 
 const Signup = () => {
@@ -12,14 +13,36 @@ const Signup = () => {
   const [googleProfile, setGoogleProfile] = useState(null);
   const [googleContact, setGoogleContact] = useState('');
   const [googleRole, setGoogleRole] = useState('buyer');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert(`Signing up ${firstName} as ${role}`);
+    setError('');
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/users/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, email, contact, role, password })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Signup failed');
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('userId', data.userId);
+      localStorage.setItem('role', data.role);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGoogleSignup = async () => {
+    setError('');
+    setLoading(true);
     try {
       const user = await signInWithGoogle();
       setGoogleProfile(user);
@@ -27,17 +50,40 @@ const Signup = () => {
       setGoogleRole('buyer');
     } catch (error) {
       console.error('Google signup failed', error);
-      alert(`Google signup failed: ${error.message}`);
+      setError(`Google signup failed: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleGoogleComplete = (event) => {
+  const handleGoogleComplete = async (event) => {
     event.preventDefault();
-    alert(
-      `Google signup completed for ${googleProfile.displayName || googleProfile.email} as ${googleRole}` +
-        (googleContact ? ` with phone ${googleContact}` : '')
-    );
-    navigate('/');
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/users/google-auth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: googleProfile.displayName || '',
+          email: googleProfile.email,
+          contact: googleContact,
+          role: googleRole,
+          googleId: googleProfile.uid,
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Google signup failed');
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('userId', data.userId);
+      localStorage.setItem('role', data.role);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleAlreadyUser = () => {
@@ -50,6 +96,7 @@ const Signup = () => {
       <p>Create a new account.</p>
       {googleProfile ? (
         <form className="auth-form" onSubmit={handleGoogleComplete}>
+          {error && <div className="auth-error">{error}</div>}
           <p>
             Signed in with Google as{' '}
             <strong>{googleProfile.displayName || googleProfile.email}</strong>.
@@ -91,10 +138,13 @@ const Signup = () => {
             </div>
           </fieldset>
 
-          <button type="submit">Finish Signup</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Finishing…' : 'Finish Signup'}
+          </button>
         </form>
       ) : (
         <form className="auth-form" onSubmit={handleSubmit}>
+          {error && <div className="auth-error">{error}</div>}
           <label>
             First Name
             <input
@@ -161,10 +211,12 @@ const Signup = () => {
             />
           </label>
 
-          <button type="button" className="google-button" onClick={handleGoogleSignup}>
+          <button type="button" className="google-button" onClick={handleGoogleSignup} disabled={loading}>
             Sign up with Google
           </button>
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Signing up…' : 'Sign Up'}
+          </button>
         </form>
       )}
 

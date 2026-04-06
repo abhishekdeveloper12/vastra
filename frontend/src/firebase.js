@@ -35,4 +35,12 @@ export const signInWithGoogle = async () => {
   }
 };
 
+export const signOutUser = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export { auth };

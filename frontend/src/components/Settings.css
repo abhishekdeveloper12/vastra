@@ -1,0 +1,43 @@
+.settings-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+}
+
+.settings-page h1 {
+  margin-top: 0;
+  color: #0f172a;
+}
+
+.settings-page p {
+  color: #475569;
+}
+
+.settings-card {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+.settings-card h2 {
+  margin-top: 0;
+}
+
+.settings-card button {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.settings-card button:hover {
+  background-color: #1d4ed8;
+}
