@@ -37,7 +37,27 @@ const Signin = () => {
     setError('');
     setLoading(true);
     try {
-      await signInWithGoogle();
+      // Sign in with Google (Firebase)
+      const user = await signInWithGoogle();
+      // Get Firebase ID token
+      const idToken = await user.getIdToken();
+      // Send ID token to backend to get app JWT
+      const response = await fetch(`${API_BASE_URL}/api/users/google-auth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: user.displayName || '',
+          email: user.email,
+          googleId: user.uid,
+          idToken,
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Google sign-in failed');
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('userId', data.userId);
+      localStorage.setItem('role', data.role);
+      localStorage.setItem('clothesellingUser', JSON.stringify({ displayName: user.displayName || user.email?.split('@')[0] || 'User', email: user.email }));
       navigate(from);
     } catch (err) {
       setError(err.message || 'Google sign-in failed.');

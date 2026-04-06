@@ -6,6 +6,7 @@ import Signin from './components/Signin'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 import Settings from './components/Settings'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
   return (
@@ -16,8 +17,16 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/settings" element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          } />
         </Routes>
       </div>
     </Router>

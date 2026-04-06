@@ -10,33 +10,35 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // If userId or token is missing, force logout
-    if (!localStorage.getItem('userId') || !localStorage.getItem('token')) {
-      localStorage.clear();
-      setUser(null);
-      if (window.location.pathname !== '/signin' && window.location.pathname !== '/signup') {
-        window.location.href = '/signin';
-      }
-      return;
-    }
+    // Always set user from localStorage on mount
     const localUser = localStorage.getItem('clothesellingUser');
     if (localUser) {
       try {
         setUser(JSON.parse(localUser));
       } catch {
+        setUser(null);
         localStorage.removeItem('clothesellingUser');
       }
+    } else {
+      setUser(null);
     }
 
+    // Listen for Firebase auth state changes
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
         setUser({
           displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
           email: firebaseUser.email,
         });
+        // Optionally update localStorage for consistency
+        localStorage.setItem('clothesellingUser', JSON.stringify({
+          displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+          email: firebaseUser.email,
+        }));
       } else {
-        const stored = localStorage.getItem('clothesellingUser');
-        setUser(stored ? JSON.parse(stored) : null);
+        // If not logged in, clear user
+        setUser(null);
+        localStorage.removeItem('clothesellingUser');
       }
     });
 
