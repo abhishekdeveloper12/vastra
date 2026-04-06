@@ -1,9 +1,22 @@
 import { hashPassword, comparePassword, generateToken } from '../utils/auth.js';
+import dotenv from 'dotenv';
+dotenv.config();
 // Manual login
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
+
+    // Check for hardcoded admin credentials
+    if (
+      email.trim().toLowerCase() === (process.env.ADMIN_EMAIL || '').toLowerCase() &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      // Return a fake admin user (no DB lookup)
+      const token = generateToken({ userId: 'admin', role: 'admin' });
+      return res.json({ token, userId: 'admin', role: 'admin' });
+    }
+
     const user = await User.findOne({ email: email.trim().toLowerCase() });
     if (!user || !user.password) return res.status(401).json({ message: 'Invalid credentials' });
     const valid = comparePassword(password, user.password);
