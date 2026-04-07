@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
+import { FaComments } from 'react-icons/fa';
+import { getUserChats } from '../api/chatApi';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
@@ -8,6 +10,28 @@ import './Navbar.css';
 const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [unreadCount, setUnreadCount] = useState(0);
+  // Fetch unread chat count
+  useEffect(() => {
+    const fetchUnread = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+      try {
+        const chats = await getUserChats(token);
+        let count = 0;
+        const userId = localStorage.getItem('userId');
+        chats.forEach(chat => {
+          chat.messages.forEach(msg => {
+            if (String(msg.sender) !== String(userId) && !msg.read) count++;
+          });
+        });
+        setUnreadCount(count);
+      } catch {}
+    };
+    fetchUnread();
+    const interval = setInterval(fetchUnread, 5000); // Poll every 5s
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Always set user from localStorage on mount
@@ -68,6 +92,24 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-left">
         <div className="logo">Logo</div>
+      </div>
+      {/* Chat Icon with Notification Badge */}
+      <div className="navbar-chat-icon" style={{ position: 'relative', marginLeft: 18, cursor: 'pointer' }} onClick={() => navigate('/chats')}>
+        <FaComments size={26} />
+        {unreadCount > 0 && (
+          <span style={{
+            position: 'absolute',
+            top: -6,
+            right: -6,
+            background: '#e53935',
+            color: '#fff',
+            borderRadius: '50%',
+            padding: '2px 7px',
+            fontSize: '0.9rem',
+            fontWeight: 700,
+            zIndex: 10,
+          }}>{unreadCount}</span>
+        )}
       </div>
       <div className="navbar-center">
         <a href="#home" onClick={e => { e.preventDefault(); navigate('/dashboard'); }}>Home</a>

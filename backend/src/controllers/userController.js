@@ -18,7 +18,14 @@ export const loginUser = async (req, res) => {
     }
 
     const user = await User.findOne({ email: email.trim().toLowerCase() });
-    if (!user || !user.password) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!user) {
+      // User does not exist
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    if (!user.password) {
+      // User exists but no password set (maybe Google auth only)
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
     const valid = comparePassword(password, user.password);
     if (!valid) return res.status(401).json({ message: 'Invalid credentials' });
     const token = generateToken({ userId: user._id, role: user.role });
@@ -29,6 +36,7 @@ export const loginUser = async (req, res) => {
 };
 
 // Google auth (sign in/up)
+// Note: This will auto-create a user if not found (intended for Google sign-in)
 export const googleAuth = async (req, res) => {
   try {
     const { email, firstName, googleId, contact, role } = req.body;

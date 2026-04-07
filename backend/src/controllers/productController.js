@@ -1,3 +1,15 @@
+// Seller: Delete their product
+export const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Only allow seller to delete their own product
+    const product = await Product.findOneAndDelete({ _id: id, seller: req.user._id });
+    if (!product) return res.status(404).json({ error: 'Product not found or not allowed' });
+    res.json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 // Seller: Mark product as sold
 export const markProductSold = async (req, res) => {
   try {
