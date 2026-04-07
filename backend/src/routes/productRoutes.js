@@ -30,6 +30,9 @@ router.post('/add', requireAuth, upload.array('photos', 10), productController.a
 router.get('/all', productController.getAllProducts);
 // Seller gets their products
 router.get('/seller', requireAuth, productController.getSellerProducts);
+
+// Seller deletes their product
+router.delete('/:id', requireAuth, productController.deleteProduct);
 // Seller marks product as sold
 router.patch('/sold/:id', requireAuth, productController.markProductSold);
 
