@@ -68,7 +68,7 @@ import fs from 'fs';
 // Add a new product (for seller)
 export const addProduct = async (req, res) => {
   try {
-    const { name, address, price, reasonForSelling, contactNumber } = req.body;
+    const { name, address, price, reasonForSelling, contactNumber, latitude, longitude } = req.body;
     const files = req.files || [];
     if (files.length < 5) {
       return res.status(400).json({ error: 'At least 5 photos are required.' });
@@ -86,11 +86,24 @@ export const addProduct = async (req, res) => {
       fs.unlink(file.path, err => { if (err) console.error('Failed to delete local file:', file.path); });
     });
 
+    // Debug: log lat/lng
+    console.log('Received lat/lng:', latitude, longitude);
+
+    // Ensure lat/lng are numbers
+    const latNum = latitude ? Number(latitude) : undefined;
+    const lngNum = longitude ? Number(longitude) : undefined;
+
+    if (typeof latNum !== 'number' || isNaN(latNum) || typeof lngNum !== 'number' || isNaN(lngNum)) {
+      return res.status(400).json({ error: 'Latitude and longitude are required and must be valid numbers.' });
+    }
+
     const product = new Product({
       seller: req.user._id,
       name,
       photos: photoUrls,
       address,
+      latitude: latNum,
+      longitude: lngNum,
       price,
       reasonForSelling,
       contactNumber,

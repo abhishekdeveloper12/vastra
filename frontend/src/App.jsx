@@ -9,6 +9,8 @@ import Settings from './components/Settings'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminDashboard from './components/AdminDashboard'
 import ChatsPage from './components/ChatsPage'
+import About from './components/About'
+import Help from './components/Help'
 
 export default function App() {
   return (
@@ -39,6 +41,8 @@ export default function App() {
               <ChatsPage />
             </ProtectedRoute>
           } />
+          <Route path="/about" element={<About />} />
+          <Route path="/help" element={<Help />} />
         </Routes>
       </div>
     </Router>

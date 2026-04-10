@@ -84,37 +84,54 @@ const Navbar = () => {
     localStorage.removeItem('clothesellingUser');
     localStorage.removeItem('userId');
     localStorage.removeItem('role');
+    localStorage.removeItem('user_address');
+    localStorage.removeItem('user_location');
+    localStorage.removeItem('token');
     setUser(null);
     navigate('/signin');
   };
+
+  // Detect admin by role in localStorage
+  const role = localStorage.getItem('role');
 
   return (
     <nav className="navbar">
       <div className="navbar-left">
         <div className="logo">Logo</div>
       </div>
-      {/* Chat Icon with Notification Badge */}
-      <div className="navbar-chat-icon" style={{ position: 'relative', marginLeft: 18, cursor: 'pointer' }} onClick={() => navigate('/chats')}>
-        <FaComments size={26} />
-        {unreadCount > 0 && (
-          <span style={{
-            position: 'absolute',
-            top: -6,
-            right: -6,
-            background: '#e53935',
-            color: '#fff',
-            borderRadius: '50%',
-            padding: '2px 7px',
-            fontSize: '0.9rem',
-            fontWeight: 700,
-            zIndex: 10,
-          }}>{unreadCount}</span>
-        )}
-      </div>
+      {/* Chat Icon with Notification Badge (only if logged in and not admin) */}
+      {user && role !== 'admin' && (
+        <div className="navbar-chat-icon" style={{ position: 'relative', marginLeft: 18, cursor: 'pointer' }} onClick={() => navigate('/chats')}>
+          <FaComments size={26} />
+          {unreadCount > 0 && (
+            <span style={{
+              position: 'absolute',
+              top: -6,
+              right: -6,
+              background: '#e53935',
+              color: '#fff',
+              borderRadius: '50%',
+              padding: '2px 7px',
+              fontSize: '0.9rem',
+              fontWeight: 700,
+              zIndex: 10,
+            }}>{unreadCount}</span>
+          )}
+        </div>
+      )}
       <div className="navbar-center">
-        <a href="#home" onClick={e => { e.preventDefault(); navigate('/dashboard'); }}>Home</a>
-        <a href="#about">About Us</a>
-        <a href="#help">Help</a>
+        {user ? (
+          <>
+            <a href="#home" onClick={e => { e.preventDefault(); navigate('/dashboard'); }}>Dashboard</a>
+            <a href="#about" onClick={e => { e.preventDefault(); navigate('/about'); }}>About Us</a>
+            <a href="#help" onClick={e => { e.preventDefault(); navigate('/help'); }}>Help</a>
+          </>
+        ) : (
+          <>
+            <a href="#about" onClick={e => { e.preventDefault(); navigate('/about'); }}>About Us</a>
+            <a href="#help" onClick={e => { e.preventDefault(); navigate('/help'); }}>Help</a>
+          </>
+        )}
       </div>
       <div className="navbar-right">
         <div className="user-container">
@@ -122,7 +139,14 @@ const Navbar = () => {
             <FaUser size={24} />
           </div>
           <div className="dropdown">
-            {user ? (
+            {role === 'admin' ? (
+              <div className="profile-card">
+                <p className="profile-welcome">Welcome Admin</p>
+                <button type="button" className="logout-button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            ) : user ? (
               <div className="profile-card">
                 <p className="profile-welcome">Welcome</p>
                 <p className="profile-name">{user.displayName || 'User'}</p>

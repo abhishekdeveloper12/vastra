@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 import axios from 'axios';
 import { API_BASE_URL } from '../api';
 import './Settings.css';
@@ -46,6 +48,14 @@ function DeleteProfile() {
         data: { userId },
         headers: { Authorization: `Bearer ${token}` }
       });
+      // Sign out from Firebase if logged in
+      if (auth.currentUser) {
+        try {
+          await signOut(auth);
+        } catch (e) {
+          // Ignore Firebase signout error
+        }
+      }
       setSuccess('Profile deleted. You can now re-register.');
       localStorage.clear();
       setTimeout(() => {
