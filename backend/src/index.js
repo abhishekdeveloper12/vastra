@@ -51,9 +51,17 @@ mongoose.connect(mongoUri)
 
 
 
+
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/chats', chatRoutes);
+
+// Global error handler to always return JSON
+app.use((err, req, res, next) => {
+  console.error('Global error:', err);
+  if (res.headersSent) return next(err);
+  res.status(err.status || 500).json({ message: err.message || 'Internal server error' });
+});
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
