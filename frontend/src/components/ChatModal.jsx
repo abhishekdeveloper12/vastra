@@ -5,7 +5,7 @@ import { getOrCreateChat, sendMessage as sendMessageApi } from '../api/chatApi';
 import { sendAudioMessage } from '../api/sendAudioMessage';
 
 
-const SOCKET_URL = 'http://localhost:5000'; // Update if backend runs elsewhere
+const SOCKET_URL = 'https://vastra12.onrender.com'; // Update if backend runs elsewhere
 
 const ChatModal = ({ open, onClose, product, buyerId, sellerId }) => {
   const [messages, setMessages] = useState([]);
