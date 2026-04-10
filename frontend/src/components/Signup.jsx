@@ -74,8 +74,15 @@ const Signup = () => {
           googleId: googleProfile.uid,
         })
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Google signup failed');
+      const text = await response.text();
+      console.log('GOOGLE SIGNUP RESPONSE:', text);
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = null;
+      }
+      if (!response.ok || !data) throw new Error((data && data.message) || 'Google signup failed or invalid response');
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.userId);
       localStorage.setItem('role', data.role);
