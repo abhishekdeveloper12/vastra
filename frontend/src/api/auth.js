@@ -11,7 +11,15 @@ export async function validateToken(token) {
       },
     });
     if (!res.ok) return false;
-    const data = await res.json();
+    // Check if response is not empty and is JSON
+    const text = await res.text();
+    if (!text) return false;
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return false;
+    }
     return data.valid === true;
   } catch {
     return false;
