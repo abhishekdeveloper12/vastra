@@ -31,8 +31,7 @@ if (!mongoUri) {
 
 app.use(cors({
   origin: [
-    'https://vastra-ra0s.onrender.com',
-    'http://localhost:5173', // for local dev
+    'https://vastra-ra0s.onrender.com'
   ],
   credentials: true,
 }));
