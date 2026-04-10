@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import User from './src/models/User.js';
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/clothes2';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/clothes2'; // Update this to your production MongoDB URI if needed
 
 async function createAdmin() {
   await mongoose.connect(MONGO_URI);

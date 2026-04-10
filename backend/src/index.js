@@ -75,5 +75,5 @@ io.on('connection', (socket) => {
 });
 
 httpServer.listen(port, () => {
-  console.log(`Backend server with Socket.io running on http://localhost:${port}`);
+  console.log(`Backend server with Socket.io running on https://vastra12.onrender.com`);
 });
