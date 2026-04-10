@@ -29,7 +29,13 @@ if (!mongoUri) {
   process.exit(1);
 }
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://vastra-ra0s.onrender.com',
+    'http://localhost:5173', // for local dev
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 // Serve uploaded images statically
