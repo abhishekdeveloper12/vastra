@@ -22,8 +22,15 @@ const Signin = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Login failed');
+      const text = await response.text();
+      console.log('LOGIN RESPONSE:', text);
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = null;
+      }
+      if (!response.ok || !data) throw new Error((data && data.message) || 'Login failed or invalid response');
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.userId);
       localStorage.setItem('role', data.role);
