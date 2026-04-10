@@ -27,7 +27,7 @@ export const loginUser = async (req, res) => {
       // User exists but no password set (maybe Google auth only)
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-    const valid = comparePassword(password, user.password);
+    const valid =await comparePassword(password, user.password);
     if (!valid) return res.status(401).json({ message: 'Invalid credentials' });
     const token = generateToken({ userId: user._id, role: user.role });
     console.log('LOGIN SUCCESS:', user.email);
