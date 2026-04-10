@@ -10,6 +10,7 @@ const Signup = () => {
   const [contact, setContact] = useState('');
   const [role, setRole] = useState('buyer');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [googleProfile, setGoogleProfile] = useState(null);
   const [googleContact, setGoogleContact] = useState('');
   const [googleRole, setGoogleRole] = useState('buyer');
@@ -203,12 +204,40 @@ const Signup = () => {
 
           <label>
             Password
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  style={{ paddingRight: 40, width: '100%' }}
+                />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  style={{
+                    position: 'absolute',
+                    right: 8,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    padding: 0,
+                    fontSize: 15,
+                    cursor: 'pointer',
+                    border: 'none',
+                    background: 'none',
+                    color: '#007bff',
+                    height: 24,
+                    width: 32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => setShowPassword(v => !v)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? '🙈' : '👁️'}
+                </button>
+              </div>
           </label>
 
           <button type="button" className="google-button" onClick={handleGoogleSignup} disabled={loading}>

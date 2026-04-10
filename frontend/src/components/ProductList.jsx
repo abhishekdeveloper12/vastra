@@ -3,10 +3,22 @@ import axios from 'axios';
 import { API_BASE_URL } from '../api';
 import ProductDetail from './ProductDetail';
 
-const ProductList = ({ isSeller }) => {
+// Haversine formula to calculate distance between two lat/lng points in km
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+const ProductList = ({ isSeller, search = "", sort = "desc", nearby = false, buyerLocation = null }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  // No modal state needed, render all products as ProductDetail
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,10 +45,37 @@ const ProductList = ({ isSeller }) => {
   if (loading) return <div>Loading products...</div>;
   if (!products.length) return <div>No products found.</div>;
 
+  // Filter and sort for buyers
+  let filteredProducts = products;
+  if (!isSeller && search) {
+    filteredProducts = filteredProducts.filter(p =>
+      p.name && p.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+  // Filter by nearby if enabled and buyer location is available
+  if (!isSeller && nearby && buyerLocation && buyerLocation.lat && buyerLocation.lng) {
+    filteredProducts = filteredProducts.filter(p => {
+      if (typeof p.latitude === 'number' && typeof p.longitude === 'number') {
+        const dist = getDistanceFromLatLonInKm(buyerLocation.lat, buyerLocation.lng, p.latitude, p.longitude);
+        return dist <= 2;
+      }
+      return false;
+    });
+  }
+  if (!isSeller) {
+    filteredProducts = filteredProducts.slice().sort((a, b) => {
+      const dateA = new Date(a.createdAt || a.date || a.updatedAt || 0);
+      const dateB = new Date(b.createdAt || b.date || b.updatedAt || 0);
+      return sort === "asc" ? dateA - dateB : dateB - dateA;
+    });
+  }
+
+  if (!filteredProducts.length) return <div>No products found.</div>;
+
   return (
     <>
       <div className="product-list-grid">
-        {products.map(product => (
+        {filteredProducts.map(product => (
           <div key={product._id} style={{ marginBottom: 32 }}>
             <ProductDetail product={product} />
             {isSeller && (

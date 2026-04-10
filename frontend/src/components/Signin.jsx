@@ -7,6 +7,7 @@ import { API_BASE_URL } from '../api';
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -62,7 +63,8 @@ const Signin = () => {
       localStorage.setItem('userId', data.userId);
       localStorage.setItem('role', data.role);
       localStorage.setItem('clothesellingUser', JSON.stringify({ displayName: user.displayName || user.email?.split('@')[0] || 'User', email: user.email }));
-      navigate(from);
+      const dest = from === '/signin' ? '/dashboard' : from;
+      navigate(dest);
     } catch (err) {
       setError(err.message || 'Google sign-in failed.');
     } finally {
@@ -89,14 +91,43 @@ const Signin = () => {
           />
         </label>
 
+
         <label>
           Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ paddingRight: 40, width: '100%' }}
+            />
+            <button
+              type="button"
+              tabIndex={-1}
+              style={{
+                position: 'absolute',
+                right: 8,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                padding: 0,
+                fontSize: 15,
+                cursor: 'pointer',
+                border: 'none',
+                background: 'none',
+                color: '#007bff',
+                height: 24,
+                width: 32,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              onClick={() => setShowPassword(v => !v)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </button>
+          </div>
         </label>
 
         <button type="button" className="google-button" onClick={handleGoogleSignin} disabled={loading}>

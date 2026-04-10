@@ -40,6 +40,7 @@ const Home = () => {
     navigate('/signin', { state: { from: '/dashboard' } });
   };
 
+  const isLoggedIn = !!localStorage.getItem('token');
   return (
     <div className="home-page">
       {showPopup && (
@@ -59,6 +60,26 @@ const Home = () => {
           <p>Find the newest styles, sell what you no longer need, and discover the perfect fit for your wardrobe.</p>
         </div>
       </section>
+
+      {!isLoggedIn && (
+        <div style={{ textAlign: 'center', margin: '32px 0' }}>
+          <button
+            style={{
+              background: '#007bff',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              padding: '12px 32px',
+              fontSize: 18,
+              cursor: 'pointer',
+              marginTop: 16
+            }}
+            onClick={goToSignin}
+          >
+            Start by Signing Up / Signing In
+          </button>
+        </div>
+      )}
 
       <section className="home-carousel">
         <h2>Featured Items</h2>
