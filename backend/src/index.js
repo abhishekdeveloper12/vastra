@@ -31,7 +31,8 @@ if (!mongoUri) {
 
 app.use(cors({
   origin: [
-    'https://vastra-ra0s.onrender.com'
+    'https://vastra12.onrender.com',
+    'https://vastra-ra0s.onrender.com' // keep both if you might use both
   ],
   credentials: true,
 }));
