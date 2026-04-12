@@ -19,6 +19,9 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 const ProductList = ({ isSeller, search = "", sort = "desc", nearby = false, buyerLocation = null }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const [pageSize] = useState(8); // 8 products per page
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -72,11 +75,17 @@ const ProductList = ({ isSeller, search = "", sort = "desc", nearby = false, buy
 
   if (!filteredProducts.length) return <div>No products found.</div>;
 
+  // Pagination logic (buyers only)
+  const paginatedProducts = isSeller
+    ? filteredProducts
+    : filteredProducts.slice((page - 1) * pageSize, page * pageSize);
+  const totalPages = isSeller ? 1 : Math.ceil(filteredProducts.length / pageSize);
+
   return (
     <>
       <div className="product-list-grid">
-        {filteredProducts.map(product => (
-          <div key={product._id} style={{ marginBottom: 32 }}>
+        {paginatedProducts.map(product => (
+          <div key={product._id} className="product-card-olx">
             <ProductDetail product={product} />
             {isSeller && (
               <div style={{ margin: '12px 0 0 32px' }}>
@@ -111,6 +120,34 @@ const ProductList = ({ isSeller, search = "", sort = "desc", nearby = false, buy
           </div>
         ))}
       </div>
+      {/* Pagination controls for buyers */}
+      {!isSeller && totalPages > 1 && (
+        <div className="pagination-olx">
+          <button
+            className="pagination-btn"
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
+            Prev
+          </button>
+          {Array.from({ length: totalPages }, (_, idx) => (
+            <button
+              key={idx + 1}
+              className={`pagination-btn${page === idx + 1 ? ' active' : ''}`}
+              onClick={() => setPage(idx + 1)}
+            >
+              {idx + 1}
+            </button>
+          ))}
+          <button
+            className="pagination-btn"
+            onClick={() => setPage(page + 1)}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </>
   );
 };

@@ -1,9 +1,58 @@
 /* Product List Grid for e-commerce look */
+/* OLX-inspired grid for product cards */
 .product-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  align-items: stretch;
+  margin-bottom: 32px;
+}
+
+/* OLX-style product card */
+.product-card-olx {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(99,102,241,0.07), 0 1.5px 8px rgba(0,0,0,0.04);
+  border: 1.5px solid #e0e7ef;
+  padding: 18px 18px 10px 18px;
+  transition: box-shadow 0.2s, border 0.2s;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  align-items: stretch;
+  min-height: 420px;
+}
+.product-card-olx:hover {
+  box-shadow: 0 4px 32px rgba(99,102,241,0.13), 0 2px 12px rgba(0,0,0,0.08);
+  border: 1.5px solid #6366f1;
+}
+
+/* Pagination styles */
+.pagination-olx {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 8px;
+  margin: 24px 0 32px 0;
+}
+.pagination-btn {
+  background: #fff;
+  border: 1.5px solid #6366f1;
+  color: #3949ab;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+}
+.pagination-btn.active, .pagination-btn:hover:not(:disabled) {
+  background: #6366f1;
+  color: #fff;
+  border-color: #6366f1;
+}
+.pagination-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 /* Product Detail Modal Styles */
 .product-detail-modal {
