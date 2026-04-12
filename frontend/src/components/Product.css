@@ -121,27 +121,22 @@
 .add-product-form h2 {
   font-size: 1.3rem;
   font-weight: 600;
+}
 
-  .add-product-form input[type="text"],
-  .add-product-form input[type="number"],
-  .add-product-form input[type="file"] {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid #cfd8dc;
-    border-radius: 8px;
-    font-size: 1.08rem;
-    background: #f5f7fa;
-    transition: border 0.2s, box-shadow 0.2s;
-    box-shadow: 0 1px 4px rgba(60,60,60,0.06);
-    margin-bottom: 10px;
-    color: #263238;
-    outline: none;
-  }
+.add-product-form input[type="text"],
+.add-product-form input[type="number"],
+.add-product-form input[type="file"] {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #cfd8dc;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  background: #f5f7fa;
   transition: border 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 4px rgba(60,60,60,0.06);
-  margin-bottom: 2px;
+  margin-bottom: 10px;
   color: #263238;
-}
+  outline: none;
 
 .add-product-form input[type="text"]:focus,
 .add-product-form input[type="number"]:focus {
