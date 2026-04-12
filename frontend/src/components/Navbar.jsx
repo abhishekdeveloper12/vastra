@@ -97,7 +97,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <div className="logo">Logo</div>
+        <img
+          src={process.env.PUBLIC_URL + '/logo.png'}
+          alt="Logo"
+          className="main-logo-img"
+          onClick={() => navigate('/')}
+        />
       </div>
       {/* Chat Icon with Notification Badge (only if logged in and not admin) */}
       {user && role !== 'admin' && (
