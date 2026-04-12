@@ -29,6 +29,11 @@ const Signup = () => {
         body: JSON.stringify({ firstName, email, contact, role, password })
       });
       const data = await response.json();
+      if (response.status === 409 || data.message === 'User already exists' || data.message === 'Email is already registered') {
+        setError('This email is already registered. Please sign in or use a different email.');
+        setLoading(false);
+        return;
+      }
       if (!response.ok) throw new Error(data.message || 'Signup failed');
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.userId);
