@@ -137,11 +137,6 @@
   margin-bottom: 10px;
   color: #263238;
   outline: none;
-}
-transition: border 0.2s, box-shadow 0.2s;
-box-shadow: 0 1px 4px rgba(60,60,60,0.06);
-margin-bottom: 2px;
-color: #263238;
 
 .add-product-form input[type="text"]:focus,
 .add-product-form input[type="number"]:focus {
