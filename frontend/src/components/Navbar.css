@@ -32,11 +32,11 @@
     font-family: 'Segoe UI', Arial, sans-serif;
   }
   .olx-l {
-    color: #3a77ff;
+    color: #3b6c68;
     font-family: 'Segoe UI', Arial, sans-serif;
   }
   .olx-x {
-    color: #ffce32;
+    color: #9c6b56;
     font-family: 'Segoe UI', Arial, sans-serif;
   }
     gap: 0.5rem;
@@ -65,8 +65,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: linear-gradient(90deg, #f8fafc 70%, #e0e7ff 100%);
-      border-bottom: 2.5px solid #3a77ff;
+      background: linear-gradient(90deg, #3b6c68 60%, #b97b4a 100%);
+      border-bottom: 2.5px solid #3b6c68;
       box-shadow: 0 2px 12px rgba(58,119,255,0.04);
       font-family: 'Segoe UI', Arial, sans-serif;
     }
@@ -100,9 +100,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.1rem 2.5rem;
-  background: linear-gradient(90deg, #3a77ff 70%, #e0e7ff 100%);
-  border-bottom: 2.5px solid #3a77ff;
-  box-shadow: 0 2px 12px rgba(58,119,255,0.08);
+    background: linear-gradient(90deg, #3b6c68 60%, #b97b4a 100%);
+    border-bottom: 2.5px solid #3b6c68;
+    box-shadow: 0 2px 12px rgba(59,108,104,0.08);
   font-family: 'Segoe UI', Arial, sans-serif;
   border-radius: 0 0 18px 18px;
 }
@@ -113,7 +113,7 @@
 
 .logo {
   font-size: 1.5rem;
-  font-weight: bold;
+  color: #9c6b56;
 }
 
 .navbar-center {
@@ -131,21 +131,21 @@
   padding: 0.4rem 1.1rem;
   border-radius: 7px;
   transition: background 0.18s, color 0.18s;
-}
+  color: #9c6b56;
 
 .navbar-center a:hover {
   background: #fff;
-  color: #3a77ff;
+  color: #3b6c68;
   text-decoration: none;
 }
 
 .navbar-right {
   flex: 1;
-  display: flex;
+  background-color: #9c6b56;
   justify-content: flex-end;
 }
 
-.user-container {
+  background-color: #9c6b56;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -163,7 +163,7 @@
   background: #fff;
   padding: 3px 7px;
   box-shadow: 0 2px 8px rgba(58,119,255,0.10);
-  border: 1.5px solid #3a77ff;
+  border: 1.5px solid #3b6c68;
 }
 
 /* Removed misplaced display: flex; */
@@ -197,13 +197,13 @@
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(58,119,255,0.10);
-  color: #3a77ff;
+  color: #3b6c68;
   font-weight: 500;
 }
 
 .profile-welcome {
   margin: 0;
-  color: #64748b;
+  color: #3b6c68;
   font-size: 0.9rem;
 }
 
@@ -211,7 +211,7 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #111827;
+  color: #b97b4a;
 }
 
 .profile-button,
@@ -219,7 +219,7 @@
   font-size: 1rem;
   padding: 0.5rem 1.1rem;
   border-radius: 8px;
-  background: #3a77ff;
+  background: #3b6c68;
   color: #fff;
   border: none;
   margin-top: 0.4rem;
@@ -229,21 +229,21 @@
 }
 .profile-button:hover, .logout-button:hover {
   background: #fff;
-  color: #3a77ff;
-  border: 1.5px solid #3a77ff;
+  color: #b97b4a;
+  border: 1.5px solid #b97b4a;
 }
 
 .profile-button {
-  background-color: #2563eb;
+  background-color: #3b6c68;
   color: white;
 }
 
 .profile-button:hover {
-  background-color: #1d4ed8;
+  background-color: #b97b4a;
 }
 
 .logout-button {
-  background-color: #ef4444;
+  background-color: #b97b4a;
   color: white;
 }
 
