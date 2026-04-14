@@ -1,21 +1,22 @@
 .footer-logo-img {
-  height: 24px;
+  height: 32px;
   width: auto;
-  margin-bottom: 8px;
-  border-radius: 6px;
+  margin-bottom: 10px;
+  border-radius: 8px;
   background: #fff;
-  padding: 2px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  padding: 3px 8px;
+  box-shadow: 0 2px 8px rgba(58,119,255,0.10);
   display: block;
+  border: 1.5px solid #3a77ff;
 }
 .footer-olx {
-  background: linear-gradient(90deg, #e0e7ff 60%, #f8fafc 100%);
-  color: #222e6c;
-  padding: 2.2rem 0 1.2rem 0;
+  background: linear-gradient(90deg, #3a77ff 70%, #e0e7ff 100%);
+  color: #fff;
+  padding: 2.5rem 0 1.5rem 0;
   border-top: 2.5px solid #3a77ff;
   margin-top: 48px;
   font-family: 'Segoe UI', Arial, sans-serif;
-  box-shadow: 0 -2px 12px rgba(58,119,255,0.04);
+  box-shadow: 0 -2px 12px rgba(58,119,255,0.08);
 }
 .footer-main {
   max-width: 1100px;
@@ -33,9 +34,10 @@
 }
 .footer-section h3 {
   margin-bottom: 0.7rem;
-  color: #3a77ff;
+  color: #ffce32;
   font-size: 1.13rem;
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 .footer-section ul {
   list-style: none;
@@ -47,12 +49,12 @@
   font-size: 1rem;
 }
 .footer-section ul li a {
-  color: #222e6c;
+  color: #fff;
   text-decoration: none;
   transition: color 0.18s;
 }
 .footer-section ul li a:hover {
-  color: #6366f1;
+  color: #ffce32;
   text-decoration: underline;
 }
 @media (max-width: 900px) {
