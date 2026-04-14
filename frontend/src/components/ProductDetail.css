@@ -64,9 +64,9 @@
 .product-detail-container {
   display: flex;
   gap: 22px;
-  background: #fff;
-  border-radius: 11px;
-  box-shadow: 0 1.5px 8px rgba(58,119,255,0.07), 0 1px 4px rgba(0,0,0,0.04);
+    background: #fff;
+    border-radius: 11px;
+    box-shadow: none;
   padding: 18px;
   margin: 18px auto;
   max-width: 670px;
@@ -86,7 +86,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f7fa;
+  background: #fff;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 12px;
@@ -108,7 +108,11 @@
 }
 .carousel-arrow.left { left: 8px; }
 .carousel-arrow.right { right: 8px; }
-.carousel-arrow:hover { background: #e3e3e3; }
+.carousel-arrow:hover {
+  background: #9c6b56;
+  color: #fff;
+  border-color: #9c6b56;
+}
 .carousel-image-wrapper {
   width: 280px;
   height: 280px;
@@ -126,10 +130,10 @@
   left: 50%;
   width: 600px;
   height: 600px;
-  background: rgba(255,255,255,0.98);
-  z-index: 1000;
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  background: #fff;
+  border: 2px solid #3b6c68;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s, border 0.2s;
   cursor: zoom-out;
 }
 .carousel-image {
@@ -150,15 +154,15 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #cfd8dc;
+  background: #3b6c68;
   transition: background 0.2s;
 }
 .carousel-indicators .active {
-  background: #3949ab;
+  background: #9c6b56;
 }
 .zoom-hint {
   font-size: 0.95rem;
-  color: #888;
+  color: #9c6b56;
   margin-top: 4px;
 }
 .product-detail-right {
@@ -170,6 +174,6 @@
 .product-detail-right h2 {
   font-size: 1.13rem;
   margin-bottom: 7px;
-  color: #3a77ff;
+  color: #3b6c68;
   font-weight: 700;
 }

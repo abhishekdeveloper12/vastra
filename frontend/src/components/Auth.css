@@ -2,19 +2,19 @@
   max-width: 520px;
   margin: 2rem auto;
   padding: 1.5rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #3b6c68;
   border-radius: 16px;
-  background: #ffffff;
+  background: #fff;
 }
 
 .auth-form-page h1 {
   margin-bottom: 0.5rem;
-  color: #1e293b;
+  color: #3b6c68;
 }
 
 .auth-form-page p {
   margin-bottom: 1.5rem;
-  color: #475569;
+  color: #9c6b56;
 }
 
 .auth-form {
@@ -25,7 +25,7 @@
 .auth-form label {
   display: flex;
   flex-direction: column;
-  color: #334155;
+    color: #3b6c68;
   font-weight: 500;
 }
 
@@ -35,7 +35,7 @@
 .auth-form input[type='tel'] {
   margin-top: 0.5rem;
   padding: 0.75rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #3b6c68;
   border-radius: 8px;
   outline: none;
 }
@@ -44,8 +44,8 @@
 .auth-form input[type='email']:focus,
 .auth-form input[type='password']:focus,
 .auth-form input[type='tel']:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  border-color: #9c6b56;
+  box-shadow: none;
 }
 
 .radio-group {
@@ -64,44 +64,44 @@
   padding: 0.85rem 1rem;
   border: none;
   border-radius: 10px;
-  background-color: #2563eb;
+  background-color: #3b6c68;
   color: white;
   font-weight: 600;
   cursor: pointer;
 }
 
 .google-button {
-  background-color: #4285f4;
-  color: white;
+  background-color: #9c6b56;
+  color: #fff;
 }
 
 .google-button:hover {
-  background-color: #3367d6;
+  background-color: #3b6c68;
 }
 
 .auth-form button:hover {
-  background-color: #1d4ed8;
+  background-color: #9c6b56;
 }
 
 .auth-error {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  background-color: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
+  background-color: #fff;
+  color: #9c6b56;
+  border: 1px solid #9c6b56;
 }
 
 .auth-switch {
   margin-top: 1rem;
-  color: #475569;
+  color: #3b6c68;
   text-align: center;
 }
 
 .link-button {
   background: none;
   border: none;
-  color: #2563eb;
+  color: #9c6b56;
   cursor: pointer;
   padding: 0;
   font-weight: 600;
