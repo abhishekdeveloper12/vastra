@@ -67,7 +67,7 @@
       padding: 1rem 2rem;
       background: linear-gradient(90deg, #3b6c68 60%, #b97b4a 100%);
       border-bottom: 2.5px solid #3b6c68;
-      box-shadow: 0 2px 12px rgba(58,119,255,0.04);
+      box-shadow: none;
       font-family: 'Segoe UI', Arial, sans-serif;
     }
     border-radius: 8px;
@@ -82,7 +82,7 @@
     right: unset;
     transform: translateX(-50%);
     border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+    box-shadow: none;
   }
   .profile-card {
     min-width: 180px;
@@ -102,7 +102,7 @@
   padding: 1.1rem 2.5rem;
     background: linear-gradient(90deg, #3b6c68 60%, #b97b4a 100%);
     border-bottom: 2.5px solid #3b6c68;
-    box-shadow: 0 2px 12px rgba(59,108,104,0.08);
+    box-shadow: none;
   font-family: 'Segoe UI', Arial, sans-serif;
   border-radius: 0 0 18px 18px;
 }
@@ -158,11 +158,11 @@
   cursor: pointer;
   margin-right: 12px;
   vertical-align: middle;
-  filter: drop-shadow(0 2px 8px rgba(58,119,255,0.13));
+  filter: none;
   border-radius: 10px;
   background: #fff;
   padding: 3px 7px;
-  box-shadow: 0 2px 8px rgba(58,119,255,0.10);
+  box-shadow: none;
   border: 1.5px solid #3b6c68;
 }
 
